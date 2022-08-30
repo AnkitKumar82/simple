@@ -1,4 +1,4 @@
-import CommentModel from "../models/Comment.mjs"
+import CommentModel from '../models/Comment.mjs'
 
 const CommentController = {
   getCommentByPostIdAndOffset,
@@ -21,9 +21,9 @@ async function getCommentByPostIdAndOffset (request, response, next) {
 
 async function createCommentByPostId (request, response, next) {
   try {
-    const { params: { id }, body , tokenUser } = request
+    const { params: { id }, body, tokenUser } = request
     const data = await CommentModel.createByPostId(id, body, tokenUser)
-    const responseBody = { data, message: 'Comment Create Success'}
+    const responseBody = { data, message: 'Comment Create Success' }
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {
@@ -36,7 +36,7 @@ async function deleteCommentById (request, response, next) {
   try {
     const { params: { id }, tokenUser } = request
     const data = await CommentModel.deleteById(id, tokenUser)
-    const responseBody = {data, message: 'Comment Delete Success' }
+    const responseBody = { data, message: 'Comment Delete Success' }
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {

@@ -12,7 +12,7 @@ const CommentModel = {
 
 async function createByPostId (postId, attrs = {}, tokenUser = {}) {
   const { userId } = tokenUser
-  const { body = ''} = attrs
+  const { body = '' } = attrs
 
   const commentObj = {
     body,
