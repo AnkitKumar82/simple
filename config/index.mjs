@@ -1,0 +1,11 @@
+import SERVER_CONFIG from './SERVER_CONFIG.mjs'
+import MONGO_CONFIG from './MONGO_CONFIG.mjs'
+import JWT_CONFIG from './JWT_CONFIG.mjs'
+import ENPOINTS_CONFIG from './ENPOINTS_CONFIG.mjs'
+
+export {
+  SERVER_CONFIG,
+  MONGO_CONFIG,
+  JWT_CONFIG,
+  ENPOINTS_CONFIG
+}

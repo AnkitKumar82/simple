@@ -1,0 +1,9 @@
+const {
+  NOTIFICATION_ENDPOINT = ''
+} = process.env
+
+const ENPOINTS_CONFIG = {
+  NOTIFICATION: NOTIFICATION_ENDPOINT
+}
+
+export default ENPOINTS_CONFIG
