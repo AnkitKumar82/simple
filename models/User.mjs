@@ -84,7 +84,7 @@ async function signup (attrs = {}) {
     const user = await User.create(userObj)
     const { _id } = user
 
-    const otp = NotificationModel.sendOtp(attrs)
+    const otp = await NotificationModel.sendOtp(attrs)
 
     const tokenData = {
       userId: _id
