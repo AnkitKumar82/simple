@@ -125,18 +125,18 @@ async function _generateHash (str) {
   return passwordHash
 }
 
-async function addFollowing(communityId, tokenUser) {
+async function addFollowing (communityId, tokenUser) {
   const { userId } = tokenUser
   const options = {
-    new: true 
+    new: true
   }
-  
+
   const updateProps = {
-    $push: { communitiesFollowing : communityId } 
+    $push: { communitiesFollowing: communityId }
   }
   const user = await User.findByIdAndUpdate(userId, updateProps, options)
 
-  if(!user) {
+  if (!user) {
     throw Errors.USER_NOT_FOUND
   }
 }

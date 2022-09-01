@@ -18,7 +18,7 @@ const PostModel = {
 async function getByOffset (offset, query = {}) {
   const limit = 5
   const skip = offset * limit
-  
+
   const promises = [
     Post.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
     Post.find(query).count()
@@ -30,7 +30,7 @@ async function getByOffset (offset, query = {}) {
   const from = skip + 1
   const to = skip + posts.length
 
-  return { posts, metaData: { from, to, totalCount }}
+  return { posts, metaData: { from, to, totalCount } }
 }
 
 async function getByUserId (offset, tokenUser = {}) {
@@ -38,7 +38,7 @@ async function getByUserId (offset, tokenUser = {}) {
   const { communitiesFollowing = [] } = user
 
   const query = {
-    communityId: { $in: communitiesFollowing}
+    communityId: { $in: communitiesFollowing }
   }
   const result = await getByOffset(offset, query)
   return result
@@ -63,7 +63,6 @@ async function getByCommunityId (attrs = {}, tokenUser = {}) {
   const result = await getByOffset(offset, query)
   return result
 }
-
 
 async function create (attrs = {}, tokenUser = {}) {
   const { userId } = tokenUser
@@ -105,7 +104,6 @@ async function getById (id) {
   }
   return post
 }
-
 
 async function deleteById (id, tokenUser = {}) {
   const { userId } = tokenUser

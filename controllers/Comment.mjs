@@ -8,7 +8,7 @@ const CommentController = {
 
 async function getCommentByPostId (request, response, next) {
   try {
-    const { params: {} } = request
+    const { params = {} } = request
     const data = await CommentModel.getByPostId(params)
     const responseBody = { data, message: 'Comment Fetch Success' }
     response.body = responseBody

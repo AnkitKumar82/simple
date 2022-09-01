@@ -11,7 +11,7 @@ const PostController = {
 
 async function getPostsByUserId (request, response, next) {
   try {
-    const { params: { offset }, tokenUser = {}  } = request
+    const { params: { offset }, tokenUser = {} } = request
     const data = await PostModel.getByUserId(offset, tokenUser)
     const responseBody = { data, message: 'Post fetch by User Id success' }
     response.body = responseBody
@@ -37,7 +37,7 @@ async function getPostsByCreatedByUserId (request, response, next) {
 
 async function getPostsByCommunityId (request, response, next) {
   try {
-    const { params} = request
+    const { params } = request
     const data = await PostModel.getByCommunityId(params)
     const responseBody = { data, message: 'Post fetch by community success' }
     response.body = responseBody

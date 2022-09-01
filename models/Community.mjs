@@ -43,10 +43,10 @@ async function getByUserId (tokenUser) {
   const { communitiesFollowing = [] } = user
 
   const query = {
-    _id: { $in: communitiesFollowing}
+    _id: { $in: communitiesFollowing }
   }
 
-  const result = await Community.find({query})
+  const result = await Community.find({ query })
   if (!result) {
     throw Errors.COMMUNITY_NOT_FOUND
   }
@@ -54,24 +54,23 @@ async function getByUserId (tokenUser) {
 }
 
 async function follow (communityId, tokenUser) {
-
   const options = {
-    new: true 
-  }  
+    new: true
+  }
   const updateProps = {
-    $inc: {followerCount: 1 } 
+    $inc: { followerCount: 1 }
   }
 
   const result = await Community.findByIdAndUpdate(communityId, updateProps, options)
-  if(!result) {
+  if (!result) {
     throw Errors.COMMUNITY_NOT_FOUND
   }
 
   await UserModel.addFollowing(communityId, tokenUser)
-  
-  return { 
+
+  return {
     follow: true
-   }
+  }
 }
 
 export default CommunityModel

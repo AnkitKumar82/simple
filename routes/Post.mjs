@@ -21,7 +21,6 @@ const {
 
 const PostRouter = new Express.Router()
 
-
 PostRouter.get('/user-id/:offset', routeMatched, tokenValidate, getPostsByUserId)
 PostRouter.get('/user-created/:offset', routeMatched, tokenValidate, getPostsByCreatedByUserId)
 PostRouter.get('/community-id/:communityId/:offset', routeMatched, getPostsByCommunityId)

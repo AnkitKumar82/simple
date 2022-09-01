@@ -16,7 +16,7 @@ const Routes = [
   { path: '/user', router: UserRouter },
   { path: '/post', router: PostRouter },
   { path: '/comment', router: CommentRouter },
-  { path: '/community', router: CommunityRouter },
+  { path: '/community', router: CommunityRouter }
 ]
 
 Routes.init = (app) => {

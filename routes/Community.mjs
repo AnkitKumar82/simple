@@ -19,7 +19,6 @@ const {
 
 const CommunityRouter = new Express.Router()
 
-
 CommunityRouter.get('/user-id', routeMatched, tokenValidate, getCommunityByUserId)
 CommunityRouter.get('/community-id/:id', routeMatched, getCommunityById)
 
