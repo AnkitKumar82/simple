@@ -7,6 +7,7 @@ const PostSchema = new Schema({
   body: { type: String, default: '' },
   attachments: { type: [AttachmentSchema], default: [] },
   userId: { type: String, require: true, index: true },
+  tags: { type: [String], default: [] },
   votes: { type: Number, default: 0 },
   createdAt: { type: Date, default: () => new Date() }
 })

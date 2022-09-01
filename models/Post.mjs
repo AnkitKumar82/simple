@@ -14,14 +14,15 @@ const PostModel = {
 
 async function create (attrs = {}, tokenUser = {}) {
   const { userId } = tokenUser
-  const { title = '', body = '', attachments = [] } = attrs
+  const { title = '', body = '', attachments = [], tags = [] } = attrs
 
   const attachmentProps = _getAttachmentProps(attachments)
   const postObj = {
     title,
     body,
     attachments: attachmentProps,
-    userId
+    userId,
+    tags
   }
 
   await Post.create(postObj)
