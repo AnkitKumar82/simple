@@ -11,17 +11,19 @@ const {
 } = TokenHandlers
 
 const {
-  createCommunity,
   getCommunityById,
-  getCommunityByUserId
+  getCommunityByUserId,
+  createCommunity,
+  followCommunity
 } = CommunityController
 
 const CommunityRouter = new Express.Router()
 
+
+CommunityRouter.get('/user-id', routeMatched, tokenValidate, getCommunityByUserId)
+CommunityRouter.get('/community-id/:id', routeMatched, getCommunityById)
+
 CommunityRouter.post('/', routeMatched, tokenValidate, createCommunity)
-
-
-CommunityRouter.get('/user-id', routeMatched, getCommunityByUserId)
-CommunityRouter.get('/:id', routeMatched, getCommunityById)
+CommunityRouter.post('/follow/community-id/:communityId', routeMatched, tokenValidate, followCommunity)
 
 export default CommunityRouter

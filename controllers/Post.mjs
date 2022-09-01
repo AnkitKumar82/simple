@@ -17,7 +17,6 @@ async function getPostsByUserId (request, response, next) {
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {
-    console.log(error)
     response.status(error.status || 500)
     return response.send(error).end()
   }
@@ -31,7 +30,6 @@ async function getPostsByCreatedByUserId (request, response, next) {
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {
-    console.log(error)
     response.status(error.status || 500)
     return response.send(error).end()
   }
@@ -45,7 +43,6 @@ async function getPostsByCommunityId (request, response, next) {
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {
-    console.log(error)
     response.status(error.status || 500)
     return response.send(error).end()
   }

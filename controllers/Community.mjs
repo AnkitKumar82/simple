@@ -3,7 +3,8 @@ import CommunityModel from '../models/Community.mjs'
 const CommunityController = {
   getCommunityById,
   getCommunityByUserId,
-  createCommunity
+  createCommunity,
+  followCommunity
 }
 
 async function getCommunityById (request, response, next) {
@@ -21,8 +22,7 @@ async function getCommunityById (request, response, next) {
 
 async function getCommunityByUserId (request, response, next) {
   try {
-
-    const { tokenUser = {}  } = request
+    const { tokenUser = {} } = request
     const data = await CommunityModel.getByUserId(tokenUser)
     const responseBody = { data, message: 'Community fetch by User Id success' }
     response.body = responseBody
@@ -38,6 +38,19 @@ async function createCommunity (request, response, next) {
     const { body = {}, tokenUser = {} } = request
     const data = await CommunityModel.create(body, tokenUser)
     const responseBody = { data, message: 'Community Create success' }
+    response.body = responseBody
+    process.nextTick(next)
+  } catch (error) {
+    response.status(error.status || 500)
+    return response.send(error).end()
+  }
+}
+
+async function followCommunity (request, response, next) {
+  try {
+    const { params: { communityId }, tokenUser = {} } = request
+    const data = await CommunityModel.follow(communityId, tokenUser)
+    const responseBody = { data, message: 'Community Follow success' }
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {

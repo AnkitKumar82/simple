@@ -25,14 +25,26 @@ async function createByPostId (postId, attrs = {}, tokenUser = {}) {
 
 async function getByPostId (attrs = {}) {
   const {postId, offset} = attrs
+
+  const query = {
+    postId
+  }
+
   const limit = 100
   const skip = offset * limit
-  const comments = await Comment.find({ postId }).sort({ createdAt: -1 }).skip(skip).limit(limit)
-  const result = {
-    totalCount : comments.count(),
-    comments
-  }
-  return result
+
+  const promises = [
+    Comment.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+    Comment.find(query).count()
+  ]
+  const result = await Promise.allSettled(promises)
+
+  const comments = result[0].value
+  const totalCount = result[1].value
+  const from = skip + 1
+  const to = skip + comments.length
+  
+  return { comments, metaData: { from, to, totalCount }}
 }
 
 async function deleteById (id, tokenUser = {}) {

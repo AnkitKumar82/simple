@@ -1,4 +1,5 @@
 import CommunitySchema from '../Schema/Community.mjs'
+import UserModel from './User.mjs'
 import mongoose from 'mongoose'
 import Errors from '../constants/Errors.mjs'
 const { model } = mongoose
@@ -8,7 +9,8 @@ const Community = new model('Community', CommunitySchema)
 const CommunityModel = {
   create,
   getById,
-  getByUserId
+  getByUserId,
+  follow
 }
 
 async function create (attrs = {}, tokenUser = {}) {
@@ -49,6 +51,27 @@ async function getByUserId (tokenUser) {
     throw Errors.COMMUNITY_NOT_FOUND
   }
   return result
+}
+
+async function follow (communityId, tokenUser) {
+
+  const options = {
+    new: true 
+  }  
+  const updateProps = {
+    $inc: {followerCount: 1 } 
+  }
+
+  const result = await Community.findByIdAndUpdate(communityId, updateProps, options)
+  if(!result) {
+    throw Errors.COMMUNITY_NOT_FOUND
+  }
+
+  await UserModel.addFollowing(communityId, tokenUser)
+  
+  return { 
+    follow: true
+   }
 }
 
 export default CommunityModel

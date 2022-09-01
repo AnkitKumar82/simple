@@ -18,14 +18,23 @@ const PostModel = {
 async function getByOffset (offset, query = {}) {
   const limit = 5
   const skip = offset * limit
-  const posts = await Post.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit)
-  const totalCount = posts.count()
-  return { posts, totalCount}
+  
+  const promises = [
+    Post.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit),
+    Post.find(query).count()
+  ]
+  const result = await Promise.allSettled(promises)
+
+  const posts = result[0].value
+  const totalCount = result[1].value
+  const from = skip + 1
+  const to = skip + posts.length
+
+  return { posts, metaData: { from, to, totalCount }}
 }
 
 async function getByUserId (offset, tokenUser = {}) {
-
-  const user = await UserModel.get(tokenUser)
+  const user = await UserModel.get(tokenUser, { communitiesFollowing: 1 })
   const { communitiesFollowing = [] } = user
 
   const query = {

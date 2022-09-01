@@ -13,14 +13,16 @@ const UserModel = {
   get,
   login,
   signup,
-  validateOtp
+  validateOtp,
+  addFollowing
 }
 
-async function get (tokenUser) {
+async function get (tokenUser, customProjection = {}) {
   const { userId } = tokenUser
 
   const projections = {
-    ...Projections
+    ...Projections,
+    ...customProjection
   }
   const user = await User.findById(userId, projections)
 
@@ -123,4 +125,19 @@ async function _generateHash (str) {
   return passwordHash
 }
 
+async function addFollowing(communityId, tokenUser) {
+  const { userId } = tokenUser
+  const options = {
+    new: true 
+  }
+  
+  const updateProps = {
+    $push: { communitiesFollowing : communityId } 
+  }
+  const user = await User.findByIdAndUpdate(userId, updateProps, options)
+
+  if(!user) {
+    throw Errors.USER_NOT_FOUND
+  }
+}
 export default UserModel
