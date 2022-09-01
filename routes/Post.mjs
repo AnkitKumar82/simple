@@ -11,7 +11,9 @@ const {
 } = TokenHandlers
 
 const {
-  getPostByOffset,
+  getPostsByUserId,
+  getPostsByCreatedByUserId,
+  getPostsByCommunityId,
   getPostById,
   createPost,
   deletePostById
@@ -19,7 +21,10 @@ const {
 
 const PostRouter = new Express.Router()
 
-PostRouter.get('/all/:offset', routeMatched, getPostByOffset)
+
+PostRouter.get('/user-id/:offset', routeMatched, tokenValidate, getPostsByUserId)
+PostRouter.get('/user-created/:offset', routeMatched, tokenValidate, getPostsByCreatedByUserId)
+PostRouter.get('/community-id/:communityId/:offset', routeMatched, getPostsByCommunityId)
 PostRouter.get('/:id', routeMatched, getPostById)
 
 PostRouter.post('/', routeMatched, tokenValidate, createPost)

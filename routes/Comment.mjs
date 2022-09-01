@@ -11,14 +11,14 @@ const {
 } = TokenHandlers
 
 const {
-  getCommentByPostIdAndOffset,
+  getCommentByPostId,
   createCommentByPostId,
   deleteCommentById
 } = CommentController
 
 const CommentRouter = new Express.Router()
 
-CommentRouter.get('/:id/:offset', routeMatched, getCommentByPostIdAndOffset)
+CommentRouter.get('/:id/:offset', routeMatched, getCommentByPostId)
 
 CommentRouter.post('/:id', routeMatched, tokenValidate, createCommentByPostId)
 

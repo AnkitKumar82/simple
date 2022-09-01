@@ -4,6 +4,7 @@ import VersionRouter from './Version.mjs'
 import UserRouter from './User.mjs'
 import PostRouter from './Post.mjs'
 import CommentRouter from './Comment.mjs'
+import CommunityRouter from './Community.mjs'
 
 const {
   responseSend
@@ -14,7 +15,8 @@ const Routes = [
   { path: '/version', router: VersionRouter },
   { path: '/user', router: UserRouter },
   { path: '/post', router: PostRouter },
-  { path: '/comment', router: CommentRouter }
+  { path: '/comment', router: CommentRouter },
+  { path: '/community', router: CommunityRouter },
 ]
 
 Routes.init = (app) => {

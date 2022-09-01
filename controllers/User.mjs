@@ -9,7 +9,8 @@ const UserController = {
 async function get (request, response, next) {
   try {
     const { tokenUser } = request
-    const data = await UserModel.get({ tokenUser })
+    const user = await UserModel.get(tokenUser)
+    const { com } = user
     const responseBody = { data, message: 'User Fetch Success' }
     response.body = responseBody
     process.nextTick(next)

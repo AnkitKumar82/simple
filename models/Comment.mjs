@@ -6,7 +6,7 @@ const Comment = new model('Comment', CommentSchema)
 
 const CommentModel = {
   createByPostId,
-  getByPostIdAndOffset,
+  getByPostId,
   deleteById
 }
 
@@ -23,11 +23,16 @@ async function createByPostId (postId, attrs = {}, tokenUser = {}) {
   await Comment.create(commentObj)
 }
 
-async function getByPostIdAndOffset (postId, offset) {
+async function getByPostId (attrs = {}) {
+  const {postId, offset} = attrs
   const limit = 100
   const skip = offset * limit
   const comments = await Comment.find({ postId }).sort({ createdAt: -1 }).skip(skip).limit(limit)
-  return comments
+  const result = {
+    totalCount : comments.count(),
+    comments
+  }
+  return result
 }
 
 async function deleteById (id, tokenUser = {}) {

@@ -1,17 +1,47 @@
 import PostModel from '../models/Post.mjs'
 
 const PostController = {
-  getPostByOffset,
+  getPostsByUserId,
+  getPostsByCreatedByUserId,
+  getPostsByCommunityId,
   getPostById,
   createPost,
   deletePostById
 }
 
-async function getPostByOffset (request, response, next) {
+async function getPostsByUserId (request, response, next) {
   try {
-    const { params: { offset } } = request
-    const data = await PostModel.getByOffset(offset)
-    const responseBody = { data, message: 'Post fetch by offset success' }
+    const { params: { offset }, tokenUser = {}  } = request
+    const data = await PostModel.getByUserId(offset, tokenUser)
+    const responseBody = { data, message: 'Post fetch by User Id success' }
+    response.body = responseBody
+    process.nextTick(next)
+  } catch (error) {
+    console.log(error)
+    response.status(error.status || 500)
+    return response.send(error).end()
+  }
+}
+
+async function getPostsByCreatedByUserId (request, response, next) {
+  try {
+    const { params: { offset }, tokenUser = {} } = request
+    const data = await PostModel.getByCreatedByUserId(offset, tokenUser)
+    const responseBody = { data, message: 'Post fetch created by User id success' }
+    response.body = responseBody
+    process.nextTick(next)
+  } catch (error) {
+    console.log(error)
+    response.status(error.status || 500)
+    return response.send(error).end()
+  }
+}
+
+async function getPostsByCommunityId (request, response, next) {
+  try {
+    const { params} = request
+    const data = await PostModel.getByCommunityId(params)
+    const responseBody = { data, message: 'Post fetch by community success' }
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {

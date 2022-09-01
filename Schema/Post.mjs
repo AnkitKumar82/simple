@@ -6,6 +6,7 @@ const PostSchema = new Schema({
   title: { type: String, default: '' },
   body: { type: String, default: '' },
   attachments: { type: [AttachmentSchema], default: [] },
+  communityId: { type: String, index: true, require: true },
   userId: { type: String, require: true, index: true },
   tags: { type: [String], default: [] },
   votes: { type: Number, default: 0 },

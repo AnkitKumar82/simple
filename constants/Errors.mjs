@@ -19,35 +19,40 @@ const Errors = {
     message: 'Comment not found',
     code: 'ERROR_04'
   },
+  COMMUNITY_NOT_FOUND: {
+    status: 404,
+    message: 'Community not found',
+    code: 'ERROR_05'
+  },
   UNAUTHORISED: {
     status: 403,
     message: 'Unauthorised',
-    code: 'ERROR_05'
+    code: 'ERROR_06'
   },
   INTERNAL_SERVER_ERROR: {
     status: 500,
     message: 'Internal server error',
-    code: 'ERROR_06'
+    code: 'ERROR_07'
   },
   BAD_REQUEST: {
     status: 400,
     message: 'Bad Request',
-    code: 'ERROR_07'
+    code: 'ERROR_08'
   },
   PASSWORDS_NOT_MATCHED: {
     status: 401,
     message: 'Password not matched',
-    code: 'ERROR_08'
+    code: 'ERROR_09'
   },
   USER_ALREADY_EXISTS: {
     status: 401,
     message: 'User Already Exists',
-    code: 'ERROR_09'
+    code: 'ERROR_10'
   },
   TOKEN_NOT_VALID: {
     status: 401,
     message: 'Token not valid',
-    code: 'ERROR_09'
+    code: 'ERROR_11'
   }
 }
 

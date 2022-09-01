@@ -6,10 +6,8 @@ const UserSchema = new Schema({
   password: { type: String, require: true },
   about: { type: String, default: '' },
   email: { type: String, require: true, index: true },
-  following: { type: [String], default: [] },
-  followers: { type: [String], default: [] },
-  followersCount: { type: Number, default: 0 },
-  followingCount: { type: Number, default: 0 },
+  communitiesFollowing: { type: [String], default: [] },
+  createdAt: { type: Date, default: () => new Date() }
 })
 
 export default UserSchema

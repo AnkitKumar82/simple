@@ -1,15 +1,15 @@
 import CommentModel from '../models/Comment.mjs'
 
 const CommentController = {
-  getCommentByPostIdAndOffset,
+  getCommentByPostId,
   createCommentByPostId,
   deleteCommentById
 }
 
-async function getCommentByPostIdAndOffset (request, response, next) {
+async function getCommentByPostId (request, response, next) {
   try {
-    const { params: { id, offset } } = request
-    const data = await CommentModel.getByPostIdAndOffset(id, offset)
+    const { params: {} } = request
+    const data = await CommentModel.getByPostId(params)
     const responseBody = { data, message: 'Comment Fetch Success' }
     response.body = responseBody
     process.nextTick(next)

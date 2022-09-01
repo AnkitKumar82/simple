@@ -16,8 +16,7 @@ const UserModel = {
   validateOtp
 }
 
-async function get (attrs = {}) {
-  const { tokenUser } = attrs
+async function get (tokenUser) {
   const { userId } = tokenUser
 
   const projections = {
