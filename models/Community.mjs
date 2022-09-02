@@ -40,7 +40,10 @@ async function getById (id) {
 }
 
 async function getByUserId (tokenUser) {
-  const user = await UserModel.get(tokenUser)
+  const userProjection = {
+    communitiesFollowing: 1
+  }
+  const user = await UserModel.get(tokenUser, userProjection)
   const { communitiesFollowing = [] } = user
 
   const query = {
@@ -59,10 +62,11 @@ async function getBySearchQuery (communitySearchQuery) {
     name: { $regex: '.*' + communitySearchQuery + '.*' }
   }
 
-  const results = await Community.find(query)
+  const results = await Community.find(query).limit(10)
   if (!results.length) {
     throw Errors.COMMUNITY_NOT_FOUND
   }
+
   return results
 }
 
