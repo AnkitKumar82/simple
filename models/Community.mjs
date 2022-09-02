@@ -10,7 +10,8 @@ const CommunityModel = {
   create,
   getById,
   getByUserId,
-  follow
+  follow,
+  getBySearchQuery
 }
 
 async function create (attrs = {}, tokenUser = {}) {
@@ -46,11 +47,23 @@ async function getByUserId (tokenUser) {
     _id: { $in: communitiesFollowing }
   }
 
-  const result = await Community.find({ query })
+  const result = await Community.find(query)
   if (!result) {
     throw Errors.COMMUNITY_NOT_FOUND
   }
   return result
+}
+
+async function getBySearchQuery (communitySearchQuery) {
+  const query = {
+    name: { $regex: '.*' + communitySearchQuery + '.*' }
+  }
+
+  const results = await Community.find(query)
+  if (!results.length) {
+    throw Errors.COMMUNITY_NOT_FOUND
+  }
+  return results
 }
 
 async function follow (communityId, tokenUser) {

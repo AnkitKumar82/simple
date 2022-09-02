@@ -4,7 +4,8 @@ const CommunityController = {
   getCommunityById,
   getCommunityByUserId,
   createCommunity,
-  followCommunity
+  followCommunity,
+  getCommunityBySearchQuery
 }
 
 async function getCommunityById (request, response, next) {
@@ -12,6 +13,19 @@ async function getCommunityById (request, response, next) {
     const { params: { id } } = request
     const data = await CommunityModel.getById(id)
     const responseBody = { data, message: 'Community fetch success' }
+    response.body = responseBody
+    process.nextTick(next)
+  } catch (error) {
+    response.status(error.status || 500)
+    return response.send(error).end()
+  }
+}
+
+async function getCommunityBySearchQuery (request, response, next) {
+  try {
+    const { params: { communitySearchQuery = '' } } = request
+    const data = await CommunityModel.getBySearchQuery(communitySearchQuery)
+    const responseBody = { data, message: 'Community List by search query fetch success' }
     response.body = responseBody
     process.nextTick(next)
   } catch (error) {

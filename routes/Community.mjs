@@ -12,6 +12,7 @@ const {
 
 const {
   getCommunityById,
+  getCommunityBySearchQuery,
   getCommunityByUserId,
   createCommunity,
   followCommunity
@@ -20,6 +21,7 @@ const {
 const CommunityRouter = new Express.Router()
 
 CommunityRouter.get('/user-id', routeMatched, tokenValidate, getCommunityByUserId)
+CommunityRouter.get('/community-name/:communitySearchQuery', routeMatched, tokenValidate, getCommunityBySearchQuery)
 CommunityRouter.get('/community-id/:id', routeMatched, getCommunityById)
 
 CommunityRouter.post('/', routeMatched, tokenValidate, createCommunity)

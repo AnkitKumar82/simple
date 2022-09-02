@@ -16,7 +16,7 @@ const PostModel = {
 }
 
 async function getByOffset (offset, query = {}) {
-  const limit = 5
+  const limit = 15
   const skip = offset * limit
 
   const promises = [
